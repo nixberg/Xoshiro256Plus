@@ -7,14 +7,14 @@ public struct Xoshiro256Plus {
     }
     
     public init(seed: UInt64) {
-        var sm64 = SplitMix64(x: seed)
-        s = (sm64.next(), sm64.next(), sm64.next(), sm64.next())
+        var rng = SplitMix64(x: seed)
+        s = (rng.next(), rng.next(), rng.next(), rng.next())
     }
     
     public mutating func next() -> Double {
         let resultPlus = s.0 &+ s.3
         
-        let t = s.1 << 17
+        let t = s.1 &<< 17
         
         s.2 ^= s.0
         s.3 ^= s.1
@@ -23,9 +23,9 @@ public struct Xoshiro256Plus {
         
         s.2 ^= t
         
-        s.3 = (s.3 << 45) | (s.3 >> 19)
+        s.3 = (s.3 &<< 45) | (s.3 &>> 19)
         
-        return Double(resultPlus >> 11) * 0x1p-53
+        return Double(resultPlus &>> 11) * 0x1p-53
     }
 }
 
@@ -39,8 +39,8 @@ struct SplitMix64 {
     mutating func next() -> UInt64 {
         x = x &+ 0x9e3779b97f4a7c15
         var z = x
-        z = (z ^ (z >> 30)) &* 0xbf58476d1ce4e5b9
-        z = (z ^ (z >> 27)) &* 0x94d049bb133111eb
-        return z ^ (z >> 31)
+        z = (z ^ (z &>> 30)) &* 0xbf58476d1ce4e5b9
+        z = (z ^ (z &>> 27)) &* 0x94d049bb133111eb
+        return z ^ (z &>> 31)
     }
 }
