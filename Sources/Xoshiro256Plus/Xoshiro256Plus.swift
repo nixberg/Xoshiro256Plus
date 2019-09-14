@@ -32,10 +32,6 @@ public struct Xoshiro256Plus {
 struct SplitMix64 {
     var x: UInt64
     
-    init(x: UInt64) {
-        self.x = x
-    }
-    
     mutating func next() -> UInt64 {
         x = x &+ 0x9e3779b97f4a7c15
         var z = x
