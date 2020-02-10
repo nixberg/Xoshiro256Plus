@@ -29,7 +29,7 @@ public struct Xoshiro256Plus {
     }
 }
 
-struct SplitMix64 {
+fileprivate struct SplitMix64 {
     var x: UInt64
     
     mutating func next() -> UInt64 {
