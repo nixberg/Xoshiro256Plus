@@ -13,8 +13,4 @@ final class Xoshiro256PlusTests: XCTestCase {
             print(rng.next())
         }
     }
-
-    static var allTests = [
-        ("testXoshiro256Plus", testXoshiro256Plus),
-    ]
 }
