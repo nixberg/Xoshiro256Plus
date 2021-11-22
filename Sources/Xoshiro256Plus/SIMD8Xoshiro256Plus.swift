@@ -7,6 +7,7 @@ public struct SIMD8Xoshiro256Plus: Seedable {
     
     public init() {
         s = (.random(), .random(), .random(), .random())
+        assert(s != (.zero, .zero, .zero, .zero))
     }
     
     public init<S>(seededWith seed: S) where S: Seed {
@@ -18,6 +19,7 @@ public struct SIMD8Xoshiro256Plus: Seedable {
             s.2[i] = rng.next()
             s.3[i] = rng.next()
         }
+        precondition(s != (.zero, .zero, .zero, .zero))
     }
     
     public mutating func next() -> Double {

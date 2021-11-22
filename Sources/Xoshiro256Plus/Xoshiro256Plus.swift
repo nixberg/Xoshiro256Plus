@@ -6,11 +6,13 @@ public struct Xoshiro256Plus: Seedable {
     public init() {
         var rng = SystemRandomNumberGenerator()
         s = (rng.next(), rng.next(), rng.next(), rng.next())
+        assert(s != (.zero, .zero, .zero, .zero))
     }
     
     public init<S>(seededWith seed: S) where S: Seed {
         var rng = SipRNG(seededWith: seed)
         s = (rng.next(), rng.next(), rng.next(), rng.next())
+        precondition(s != (.zero, .zero, .zero, .zero))
     }
     
     public mutating func next() -> Double {
