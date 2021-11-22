@@ -3,16 +3,16 @@ import Xoshiro256Plus
 
 final class Xoshiro256PlusTests: XCTestCase {
     func test() {
-        var one = Xoshiro256Plus(seed: 0)
-        var two = Xoshiro256Plus(seed: 0x6111c6836b29f541)
+        var one = Xoshiro256Plus(seededWith: 0 /*as Int*/)
+        var two = Xoshiro256Plus(seededWith: 0x6111c6836b29f541 as UInt64)
         
-        XCTAssertEqual(one.next(), 0.85419278636747109)
-        XCTAssertEqual(two.next(), 0.19237575934256057)
-        for _ in (0..<1024) {
+        XCTAssertEqual(one.next(), 0.19111320809407928)
+        XCTAssertEqual(two.next(), 0.18457594175387138)
+        for _ in 0..<1024 {
             _ = one.next()
             _ = two.next()
         }
-        XCTAssertEqual(one.next(), 0.38616476068080718)
-        XCTAssertEqual(two.next(), 0.17164116097323845)
+        XCTAssertEqual(one.next(), 0.84681644224350180)
+        XCTAssertEqual(two.next(), 0.52176324526826280)
     }
 }

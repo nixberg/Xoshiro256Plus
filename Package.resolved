@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "seedable-swift",
+        "repositoryURL": "https://github.com/nixberg/seedable-swift",
+        "state": {
+          "branch": "main",
+          "revision": "45cfb10506a9c5b3aac86dc87807d50ef9bafddd",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

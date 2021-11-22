@@ -1,19 +1,23 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 
 import PackageDescription
 
 let package = Package(
-    name: "Xoshiro256Plus",
+    name: "xoshiro256plus-swift",
     products: [
         .library(
             name: "Xoshiro256Plus",
             targets: ["Xoshiro256Plus"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/nixberg/seedable-swift", .branch("main")),
+    ],
     targets: [
         .target(
             name: "Xoshiro256Plus",
-            dependencies: []),
+            dependencies: [
+                .product(name: "Seedable", package: "seedable-swift"),
+            ]),
         .testTarget(
             name: "Xoshiro256PlusTests",
             dependencies: ["Xoshiro256Plus"]),
