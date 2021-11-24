@@ -1,6 +1,8 @@
 import Seedable
 
 public struct SIMD8Xoshiro256Plus: Seedable {
+    public static var seedByteCount = 256
+    
     var s: (SIMD8<UInt64>, SIMD8<UInt64>, SIMD8<UInt64>, SIMD8<UInt64>)
     var buffer: SIMD8<Double> = .zero
     var index = 8
@@ -10,15 +12,24 @@ public struct SIMD8Xoshiro256Plus: Seedable {
         assert(s != (.zero, .zero, .zero, .zero))
     }
     
-    public init<S>(seededWith seed: S) where S: Seed {
-        var rng = SipRNG(seededWith: seed)
+    public init<Seed>(seededWith seed: Seed) where Seed: Collection, Seed.Element == UInt8 {
+        var seed = seed[...]
+        
         s = (.zero, .zero, .zero, .zero)
+        
         for i in s.0.indices {
-            s.0[i] = rng.next()
-            s.1[i] = rng.next()
-            s.2[i] = rng.next()
-            s.3[i] = rng.next()
+            s.0[i] = UInt64(littleEndianBytes: seed.prefix(8))
+            seed = seed.dropFirst(8)
+            s.1[i] = UInt64(littleEndianBytes: seed.prefix(8))
+            seed = seed.dropFirst(8)
+            s.2[i] = UInt64(littleEndianBytes: seed.prefix(8))
+            seed = seed.dropFirst(8)
+            s.3[i] = UInt64(littleEndianBytes: seed.prefix(8))
+            seed = seed.dropFirst(8)
         }
+        
+        precondition(seed.isEmpty)
+        
         precondition(s != (.zero, .zero, .zero, .zero))
     }
     

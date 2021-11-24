@@ -1,10 +1,11 @@
+import Seedable
 import XCTest
 import Xoshiro256Plus
 
 final class Xoshiro256PlusTests: XCTestCase {
     func test() {
-        var one = Xoshiro256Plus(seededWith: 0 /*as Int*/)
-        var two = Xoshiro256Plus(seededWith: 0x6111c6836b29f541 as UInt64)
+        var one = Xoshiro256Plus(seededUsing: SipRNG(hashing: 0))
+        var two = Xoshiro256Plus(seededWith: 0x6111c6836b29f541)
         
         XCTAssertEqual(one.next(), 0.19111320809407928)
         XCTAssertEqual(two.next(), 0.18457594175387138)
@@ -17,8 +18,8 @@ final class Xoshiro256PlusTests: XCTestCase {
     }
     
     func testSIMD8() {
-        var one = SIMD8Xoshiro256Plus(seededWith: 0 /*as Int*/)
-        var two = SIMD8Xoshiro256Plus(seededWith: 0x6111c6836b29f541 as UInt64)
+        var one = SIMD8Xoshiro256Plus(seededUsing: SipRNG(hashing: 0))
+        var two = SIMD8Xoshiro256Plus(seededWith: 0x6111c6836b29f541)
         
         XCTAssertEqual(one.next(), 0.19111320809407928)
         XCTAssertEqual(two.next(), 0.18457594175387138)
